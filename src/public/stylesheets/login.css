@@ -1,0 +1,61 @@
+@font-face {
+    font-family: walmart;
+    src:  url("/fonts/BogleWeb-Regular.woff") format('woff')
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /* overflow: hidden; */
+    background-color: #eeeeee;
+    overflow: hidden;
+    flex-flow: column;
+    display: flex;
+}
+
+.header-titles {
+    flex-direction: row ;
+  }
+
+#header-content {
+    display: flex;
+    flex-flow: row wrap;
+    border: none;
+    background-color: #0f1c2c;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.2);
+    padding: 5px 5px;
+    overflow: hidden;
+    z-index: 2;
+    position: relative;
+    min-height: 50px;
+}
+
+#frame-content {
+    width: 100%;
+    border : none;
+    flex: auto;
+    overflow: auto;
+}
+.header-titles>h1 {
+    color: white;
+    font-family: walmart, Bogle-Bold, sans-serif;
+    margin: 0px;
+    font-size: larger;
+}
+.header-titles>h6 {
+    color: white;
+    font-family: walmart, Bogle-Bold, sans-serif;
+    margin: 0px;
+    font-size: smaller;
+}
+#botlogo {
+    height: 50px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#spark {
+    height: 55px;
+}

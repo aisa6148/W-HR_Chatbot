@@ -1,0 +1,20 @@
+{
+  "name": "@walmart/bot-logger",
+  "version": "1.2.3",
+  "description": "Telemetry tool for chat logs. Logs can be visualized on an interactive POWER BI dashboard",
+  "main": "chatlogger",
+  "scripts": {},
+  "keywords": [
+    "chat",
+    "logs",
+    "dashboard",
+    "analytics",
+    "botframework",
+    "powerbi"
+  ],
+  "author": "Madhav Khaddar, Jatin Mohan",
+  "license": "ISC",
+  "dependencies": {
+    "documentdb": "^1.14.4"
+  }
+}

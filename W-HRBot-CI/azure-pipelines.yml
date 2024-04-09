@@ -1,0 +1,39 @@
+trigger:
+  branches:
+    include:
+    - refs/heads/master
+jobs:
+- job: Phase_1
+  displayName: Agent job 1
+  cancelTimeoutInMinutes: 1
+  pool:
+    name: GBS Linux Build Agent Pool
+  steps:
+  - checkout: self
+  - task: Npm@1
+    displayName: npm install
+    inputs:
+      verbose: true
+  - task: Npm@1
+    displayName: npm custom
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: run build
+  - task: ArchiveFiles@2
+    displayName: Archive $(System.DefaultWorkingDirectory)
+    inputs:
+      rootFolderOrFile: $(System.DefaultWorkingDirectory)
+      includeRootFolder: false
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+  - task: SonarQubePrepare@4
+    displayName: Prepare analysis on SonarQube
+    inputs:
+      SonarQube: 2cea800f-5c56-4611-9855-8659ea5ef233
+      scannerMode: CLI
+  - task: SonarQubeAnalyze@4
+    displayName: Run Code Analysis
+  - task: SonarQubePublish@4
+    displayName: Publish Quality Gate Result
+...

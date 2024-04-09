@@ -1,0 +1,28 @@
+tools:
+  nodejs: 8.9.4
+  npm: 6.1.0
+
+triggers:
+  - push:
+      # ensure that npm version commit does not trigger another build
+      # by ignoring message used in publish flow below
+      ignoreMessage:
+        - "Release.*"
+  - manual: Build
+
+flows:
+  # default flow is run for each commit, add whatever you want to happen then
+  default:
+  - npm config ls -l
+  - npm install
+  - call: publish
+
+  publish:
+  - git status && git diff
+  - npm version $versiontype -m 'Release ${package.version}'
+  - git status && git diff
+  - exposeVars(package.json)
+  - echo "Publishing ${package.version}"
+  - npm publish
+  - git status && git push --tags
+

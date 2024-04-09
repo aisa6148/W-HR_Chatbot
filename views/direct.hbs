@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{{title}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link href="/stylesheets/botchat.css" rel="stylesheet" />
+    <link href="/stylesheets/botchat-fullwindow.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="BotChatElement"></div>
+    <script src="/javascripts/botchat-es5.min.js"></script>
+    <!--additional code for speech -->
+
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/CognitiveServices.js"></script>
+
+    <!--End of additional code -->
+    <script>
+        var model = {
+            "userId": "{{ model.userId }}",
+            "userName": "{{ model.userName }}",
+            "botId": "{{ model.userId }}",
+            "botIconUrl": "{{ model.userId }}",
+            "botName": "{{ model.botName }}",
+            "secret": "{{ model.secret }}",
+            "iconUrl": "{{ model.iconUrl }}",
+            "directLineUrl": "{{ model.directLineUrl }}",
+            "webSocketEnabled": "{{ model.webSocketEnabled }}",
+            "speechTokenEndpoint": "{{ model.speechTokenEndpoint }}",
+            "conversationId" : "{{model.conversationId}}",
+        {{#if token}}
+            "token": "{{ model.token }}",
+        {{/if}}
+            "useLatestWebChat": {{ model.useLatestWebChat }}
+            };
+            // const speechOptions = {
+            //         speechRecognizer: new CognitiveServices.SpeechRecognizer({ subscriptionKey: '89742bee63f0427e9fe2d73ae6fe2e84' }),
+            //         speechSynthesizer: new CognitiveServices.SpeechSynthesizer({
+            //           gender: CognitiveServices.SynthesisGender.Female,
+            //           subscriptionKey: '89742bee63f0427e9fe2d73ae6fe2e84',
+            //           voiceName: 'Microsoft Server Speech Text to Speech Voice (en-US, JessaRUS)'
+            //         })
+            //    };
+            const speechOptions = {
+                speechRecognizer: new BotChat.Speech.BrowserSpeechRecognizer(),
+                speechSynthesizer: new BotChat.Speech.BrowserSpeechSynthesizer()
+            };
+    </script>
+    <script>
+            BotChat.App({
+                directLine: {
+                    secret: model.secret,
+                    domain: model.directLineUrl,
+                    webSocket: false,
+                    conversationId: model.conversationId
+                },
+                user: { 
+                    id: model.userId, 
+                {{#if token}}
+                    token: model.token,
+                {{/if}}
+                    name: model.userName 
+                },
+                bot: { id: model.botId, name: model.botName },
+                resize: 'window',
+                speechOptions: speechOptions,
+                locale: 'en'
+            }, document.getElementById("BotChatElement"));
+
+    </script>
+</body>
+
+</html>
